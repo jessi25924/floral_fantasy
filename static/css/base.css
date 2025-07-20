@@ -2,6 +2,11 @@
 
 :root {
     --primary-font: "Playfair Display", sans-serif;
+    --primary-color: #BF8B5E; 
+}
+
+body {
+    background-color: var(--primary-color);
 }
 
 h1 {
