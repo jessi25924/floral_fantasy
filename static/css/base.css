@@ -14,3 +14,34 @@ h1 {
     text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
     font-style: italic;
 }
+
+.navbar-transparent {
+    background-color: transparent !important;
+    transition: background-color 0.4s ease; 
+}
+
+.navbar-solid {
+    background-color: #593D2D !important;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-brand img {
+    height: 100px;
+    width: auto;
+}
+
+#main-navbar .nav-link {
+    font-size: 1.25rem;
+}
+
+.navbar-nav .nav-link {
+    color: #fff !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #D9A796 !important;
+}
+
+footer {
+    background-color: #593D2D;
+}
