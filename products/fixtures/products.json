@@ -1,0 +1,122 @@
+[
+    {
+        "pk": 1,
+        "model": "products.product",
+        "fields": {
+            "name": "Bouquet1",
+            "description": "Red & white roses with pink carnations",
+            "price": 24.99,
+            "category": 1,
+            "in_stock": true,
+            "image": "bouquet1.jpg"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "products.product",
+        "fields": {
+            "name": "Bouquet2",
+            "description": "Pink Roses with small variety flowers",
+            "price": 18.00,
+            "category": 1,
+            "in_stock": true,
+            "image": "bouquet2.jpg"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.product",
+        "fields": {
+            "name": "Bouquet3",
+            "description": "Roses and carnations",
+            "price": 14.99,
+            "category": 1,
+            "in_stock": true,
+            "image": "bouquet3.jpg"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "products.product",
+        "fields": {
+            "name": "Bouquet7",
+            "description": "Large fluffy white peonies and purple dahlias",
+            "price": 23.99,
+            "category": 1,
+            "in_stock": true,
+            "image": "bouquet7.jpg"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "products.product",
+        "fields": {
+            "name": "Bridal Bouquet",
+            "description": "White Roses",
+            "price": 26.00,
+            "category": 2,
+            "in_stock": true,
+            "image": "bridal_bouquet.jpg"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "products.product",
+        "fields": {
+            "name": "Bridal Bouquet7",
+            "description": "Red Roses and White Orchids",
+            "price": 30.00,
+            "category": 2,
+            "in_stock": true,
+            "image": "bridal_bouquet7.jpg"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "products.product",
+        "fields": {
+            "name": "Bridal Bouquet3",
+            "description": "Peonies",
+            "price": 28.00,
+            "category": 2,
+            "in_stock": true,
+            "image": "bridal_bouquet3.jpg"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "products.product",
+        "fields": {
+            "name": "Mixed Flowers2",
+            "description": "Mixed summer flowers",
+            "price": 15.00,
+            "category": 3,
+            "in_stock": true,
+            "image": "sumcol_mixed_flowers.jpg"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "products.product",
+        "fields": {
+            "name": "Hydrangeas Bouquet",
+            "description": "Hydrangeas in mixed colours",
+            "price": 20.00,
+            "category": 3,
+            "in_stock": true,
+            "image": "sumcol_hydrangeas_bouquet.jpg"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "products.product",
+        "fields": {
+            "name": "Mixed Flowers3",
+            "description": "Mixed summer flowers",
+            "price": 15.00,
+            "category": 3,
+            "in_stock": true,
+            "image": "sumcol_mixed_flowers3.jpg"
+        }
+    }
+]

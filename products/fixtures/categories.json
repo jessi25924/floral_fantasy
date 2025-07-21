@@ -1,0 +1,26 @@
+[
+    {
+        "pk": 1,
+        "model": "products.category",
+        "fields": {
+            "name": "bouquet",
+            "display_name": "Bouquet"
+        }
+    }, 
+    {
+        "pk": 2,
+        "model": "products.category",
+        "fields": {
+            "name": "wedding_bouquet",
+            "display_name": "Wedding Bouquet"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.category",
+        "fields": {
+            "name": "seasonal_collection",
+            "display_name": "Seasonal Collection"
+        }
+    }
+]
