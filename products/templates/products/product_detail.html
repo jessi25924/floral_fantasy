@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container mt-5">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'images/noimage.jpg' %}" class="img-fluid rounded shadow-sm" alt="No image">
+            {% endif %}
+        </div>
+        <div class="col-md6">
+            <h1> {{ product.name }}</h1>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p>
+                <strong>Availability:</strong>
+                {% if product.in_stock %}
+                    <span class="badge bg-success">In Stock</span>
+                {% else %}
+                    <span class="badge bg-danger">Out of Stock</span>
+                {% endif %}
+            </p>
+            <hr>
+            <!-- Add to cart button -->
+            <h4>Description</h4>
+            <p>{{ product.description }}</p>
+            <a href="{% url 'products:product_list' %}" class="btn btn-success mt-3">
+                Back to all bouquets
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

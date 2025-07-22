@@ -2,7 +2,7 @@
 
 :root {
     --primary-font: "Playfair Display", sans-serif;
-    --primary-color: #BF8B5E; 
+    --primary-color: #798C87; 
 }
 
 body {
@@ -23,7 +23,7 @@ h1 {
 }
 
 .navbar-solid {
-    background-color: #593D2D !important;
+    background-color: #2F4036 !important;
     transition: background-color 0.3s ease;
 }
 
@@ -45,7 +45,7 @@ h1 {
 }
 
 footer {
-    background-color: #593D2D;
+    background-color: #2F4036;
 }
 
 /* Sign up form */
