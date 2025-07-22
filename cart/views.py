@@ -19,3 +19,26 @@ def add_to_cart(request, product_id):
     return redirect('product:product_list')
 
 
+def cart_detail(request):
+    """
+    Display the current session‐based shopping cart.
+    """
+    cart = request.session.get('cart', {})
+    items = []
+    total_price = 0
+
+    for pid, data in cart.items():
+        product = get_object_or_404(Product, pk=int(pid))
+        qty = data.get('quantity', 0)
+        subtotal = product.price * qty
+        items.append({
+            'product': product,
+            'quantity': qty,
+            'subtotal': subtotal,
+        })
+        total_price += subtotal
+
+    return render(request, 'cart/cart_detail.html', {
+        'items': items,
+        'total_price': total_price,
+    })
