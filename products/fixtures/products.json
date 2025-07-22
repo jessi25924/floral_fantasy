@@ -118,5 +118,125 @@
             "in_stock": true,
             "image": "sumcol_mixed_flowers3.jpg"
         }
+    },
+    {
+        "pk": 11,
+        "model": "products.product",
+        "fields": {
+            "name": "Bouquet8",
+            "description": "Pink Carnation flowers",
+            "price": 14.00,
+            "category": 1,
+            "in_stock": true,
+            "image": "bouquet8.jpg"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "products.product",
+        "fields": {
+            "name": "Bouquet4",
+            "description": "White and purple flowers",
+            "price": 15.00,
+            "category": 1,
+            "in_stock": true,
+            "image": "bouquet4.jpg"
+        }
+    },
+    {
+        "pk": 13,
+        "model": "products.product",
+        "fields": {
+            "name": "Bouquet5",
+            "description": "White and baby blue flowers",
+            "price": 17.99,
+            "category": 1,
+            "in_stock": true,
+            "image": "bouquet5.jpg"
+        }
+    },
+    {
+        "pk": 14,
+        "model": "products.product",
+        "fields": {
+            "name": "Floral Luxe1",
+            "description": "mixed flowers",
+            "price": 25.00,
+            "category": 1,
+            "in_stock": true,
+            "image": "floral_luxe1.jpg"
+        }
+    },
+    {
+        "pk": 15,
+        "model": "products.product",
+        "fields": {
+            "name": "Floral Luxe2",
+            "description": "mixed flowers",
+            "price": 26.99,
+            "category": 1,
+            "in_stock": true,
+            "image": "floral_luxe2.jpg"
+        }
+    },
+    {
+        "pk": 16,
+        "model": "products.product",
+        "fields": {
+            "name": "Floral Luxe3",
+            "description": "mixed flowers",
+            "price": 25.00,
+            "category": 1,
+            "in_stock": true,
+            "image": "floral_luxe3.jpg"
+        }
+    },
+    {
+        "pk": 17,
+        "model": "products.product",
+        "fields": {
+            "name": "Floral Luxe4",
+            "description": "mixed flowers",
+            "price": 28.00,
+            "category": 1,
+            "in_stock": true,
+            "image": "floral_luxe4.jpg"
+        }
+    },
+    {
+        "pk": 18,
+        "model": "products.product",
+        "fields": {
+            "name": "Bridal Bouquet2",
+            "description": "White Roses",
+            "price": 25.00,
+            "category": 2,
+            "in_stock": true,
+            "image": "bridal_bouquet2.jpg"
+        }
+    },
+    {
+        "pk": 19,
+        "model": "products.product",
+        "fields": {
+            "name": "Bridal Bouquet6",
+            "description": "Variety of red and pink flowers",
+            "price": 30.00,
+            "category": 2,
+            "in_stock": true,
+            "image": "bridal_bouquet6.jpg"
+        }
+    },
+    {
+        "pk": 20,
+        "model": "products.product",
+        "fields": {
+            "name": "Sunflower Bouquet",
+            "description": "Sunflowers",
+            "price": 10.00,
+            "category": 3,
+            "in_stock": true,
+            "image": "sumcol_sunflower_bouquet.jpg"
+        }
     }
 ]
