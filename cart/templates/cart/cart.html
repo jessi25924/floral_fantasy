@@ -42,7 +42,7 @@
                             {% endif %}
                             <span>{{ item.product.name }}</span>
                         </td>
-                        <td class="text-center">${{ item.product.price }}</td>
+                        <td class="text-center">£{{ item.product.price|floatformat:2 }}</td>
                         <td class="text-center">
                             <form method="post" action="">
                                 {% csrf_token %}
@@ -58,7 +58,7 @@
                                 </button>
                             </form>
                         </td>
-                        <td class="text-center fw-bold">${{ item.line_total }}</td>
+                        <td class="text-center fw-bold">£{{ item.line_total|floatformat:2 }}</td>
                         <td class="text-center">
                             <form method="post" action="">
                                 {% csrf_token %}
@@ -79,18 +79,18 @@
                 <ul class="list-group" mb-4>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Subtotal</span>
-                        <strong>${{ subtotal }}</strong>
+                        <strong>£{{ subtotal|floatformat:2 }}</strong>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Delivery</span>
-                        <strong>${{ delivery_charge }}</strong>
+                        <strong>£{{ delivery_charge|floatformat:2 }}</strong>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Grand Total</span>
-                        <strong>${{ grand_total }}</strong>
+                        <strong>£{{ grand_total|floatformat:2 }}</strong>
                     </li>
                 </ul>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mt-3">
                     <a href="{% url 'products:product_list' %}"
                         class="btn btn-success">
                         Continue Shopping
