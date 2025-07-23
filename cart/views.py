@@ -1,6 +1,12 @@
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 
+
+def view_cart(request):
+    """
+    
+    """
+    return render(request, 'cart/cart.html')
 
 def add_to_cart(request, product_id):
     """

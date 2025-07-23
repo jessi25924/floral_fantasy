@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <h1 class="mb-4">Your Shopping Cart</h1>
+
+    {% if cart_items %}
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col" class="text-center">Price</th>
+                        <th scope="col" class="text-center">Quantity</th>
+                        <th scope="col" class="text-center">Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td class="d-flex align-items-center">
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}"
+                                    alt="{{ item.product.name }}"
+                                    class="img-thumbnail me-3"
+                                    style="width: 60px; height: 60px; object-fit: cover;">
+                            {% else %}
+                                <img src="{% static 'images/noimage.jpg' %}"
+                                    class="img-thumbnail me-3"
+                                    style="width: 60px; height: 60px; object-fit: cover;"
+                                    alt="No image">
+                            {% endif %}
+                            <span>{{ item.product.name }}</span>
+                        </td>
+                        <td class="text-center">${{ item.product.price }}</td>
+                        <td class="text-center">
+                            <form method="post" action="{% url 'cart:update_item' item.product.pk %}">
+                                {% csrf_token %}
+                                <input type="number"
+                                    name="quantity"
+                                    value="{{ item.quantity }}"
+                                    min="1"
+                                    class="form-control form-control-sm d-inline-block text-center"
+                                    style="width: 70px;">
+                                <button type="submit"
+                                        class="btn btn-sm btn-outline-secondary ms-2">
+                                Update
+                                </button>
+                            </form>
+                        </td>
+                        <td class="text-center fw-bold">${{ item.line_total }}</td>
+                        <td class="text-center">
+                            <form method="post" action="{% url 'cart:remove_item' item.product.pk %}">
+                                {% csrf_token %}
+                                <button type="submit"
+                                        class="btn btn-sm btn-danger">
+                                Remove
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row justify-content-end">
+            <div class="col-12 col-md-6 col-lg-4">
+                <ul class="list-group mb-4">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Subtotal</span>
+                        <strong>${{ subtotal }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Tax</span>
+                        <strong>${{ tax }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total</span>
+                        <strong>${{ total }}</strong>
+                    </li>
+                </ul>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'products:product_list' %}"
+                        class="btn btn-outline-primary">
+                        Continue Shopping
+                    </a>
+                    <a href="{% url 'checkout:begin' %}"
+                        class="btn btn-primary">
+                        Proceed to Checkout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="alert alert-info text-center">Your cart is empty.</div>
+        <div class="text-center">
+            <a href="{% url 'products:product_list' %}" class="btn btn-primary">
+        Shop Now</a>
+    </div>
+    {% endif %}
+</div>
+    
+{% endblock %}
