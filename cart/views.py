@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from decimal import Decimal
 from django.contrib import messages
 from products.models import Product
 
@@ -22,35 +23,42 @@ def add_to_cart(request, product_id):
         messages.error(request, f'Sorry, "{product.name}" is currently out of stock.')
         return redirect(redirect_url)
     
-    cart = request.session.get('bag', {})
-    cart[product_id] = cart.get(product_id, 0) + quantity
+    cart = request.session.get('cart', {})
+    key = str(product_id)
+
+    cart[key] = cart.get(key, 0) + quantity
     request.session['cart'] = cart
 
-    messages.success(request, f'Added {quantity} x "{product.name}" to your cart.')
-    print(request.session['cart'])
+    messages.success(request, f'Added {quantity} × "{product.name}" to your cart.')
     return redirect(redirect_url)
 
 
-def cart_detail(request):
+def view_cart(request):
     """
-    Display the current session‐based shopping cart.
+    Display the contents of the user's shopping cart,
+    including a flat delivery fee of 2.99.
     """
     cart = request.session.get('cart', {})
-    items = []
-    total_price = 0
+    cart_items = []
+    subtotal = Decimal('0.00')
 
-    for pid, data in cart.items():
-        product = get_object_or_404(Product, pk=int(pid))
-        qty = data.get('quantity', 0)
-        subtotal = product.price * qty
-        items.append({
-            'product': product,
-            'quantity': qty,
-            'subtotal': subtotal,
+    for pid_str, qty in cart.items():
+        product = get_object_or_404(Product, pk=int(pid_str))
+        line_total = product.price * qty
+        subtotal += line_total
+        cart_items.append({
+            'product':    product,
+            'quantity':   qty,
+            'line_total': line_total,
         })
-        total_price += subtotal
 
-    return render(request, 'cart/cart_detail.html', {
-        'items': items,
-        'total_price': total_price,
-    })
+    delivery_charge = Decimal('2.99')
+    grand_total = subtotal + delivery_charge
+
+    context = {
+        'cart_items': cart_items,
+        'subtotal': subtotal,
+        'delivery_charge': delivery_charge,
+        'grand_total': grand_total,
+    }
+    return render(request, 'cart/cart.html', context)

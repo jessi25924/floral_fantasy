@@ -44,7 +44,7 @@
                         </td>
                         <td class="text-center">${{ item.product.price }}</td>
                         <td class="text-center">
-                            <form method="post" action="{% url 'cart:update_item' item.product.pk %}">
+                            <form method="post" action="">
                                 {% csrf_token %}
                                 <input type="number"
                                     name="quantity"
@@ -60,7 +60,7 @@
                         </td>
                         <td class="text-center fw-bold">${{ item.line_total }}</td>
                         <td class="text-center">
-                            <form method="post" action="{% url 'cart:remove_item' item.product.pk %}">
+                            <form method="post" action="">
                                 {% csrf_token %}
                                 <button type="submit"
                                         class="btn btn-sm btn-danger">
@@ -76,27 +76,27 @@
 
         <div class="row justify-content-end">
             <div class="col-12 col-md-6 col-lg-4">
-                <ul class="list-group mb-4">
+                <ul class="list-group" mb-4>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Subtotal</span>
                         <strong>${{ subtotal }}</strong>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Tax</span>
-                        <strong>${{ tax }}</strong>
+                        <span>Delivery</span>
+                        <strong>${{ delivery_charge }}</strong>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Total</span>
-                        <strong>${{ total }}</strong>
+                        <span>Grand Total</span>
+                        <strong>${{ grand_total }}</strong>
                     </li>
                 </ul>
                 <div class="d-flex justify-content-between">
                     <a href="{% url 'products:product_list' %}"
-                        class="btn btn-outline-primary">
+                        class="btn btn-success">
                         Continue Shopping
                     </a>
-                    <a href="{% url 'checkout:begin' %}"
-                        class="btn btn-primary">
+                    <a href=""
+                        class="btn btn-success">
                         Proceed to Checkout
                     </a>
                 </div>
