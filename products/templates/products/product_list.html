@@ -28,15 +28,14 @@
                         <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
                         <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
                         <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
-                        <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
-                        <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>Category (Z-A)</option>
                     </select>
                 </div>
             </div>
-            <form method="GET" action="{% url 'products:product_list' %}">
+            <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center">
+                <form method="GET" action="{% url 'products:product_list' %}">
                 <div class="input-group w-100">
                     <input class="form-control border border-black rounded-0" type="text" name="q"
-                    placeholder="Search our site">
+                    placeholder="Search...">
                     <div class="input-group-append">
                     <button class="form-control btn btn-black border border-black rounded-0" type="submit">
                         <span class="icon">
@@ -46,6 +45,7 @@
                     </div>
                 </div>
             </form>
+            </div>
         </div>
 
         <div class="row justify-content-center">
@@ -77,9 +77,6 @@
                         <span class="badge bg-danger">Out of Stock</span>
                         {% endif %}
                     </div>
-
-                    <!-- Add to cart button-->
-                     <!--              -->
                     </div>
                 </div>
                 </div>
@@ -97,9 +94,29 @@
                 {% endif %}
                 </div>
             {% endif %}
-
-           
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block postloadjs %}
+<!--Inspired code by CI walkthrough lesson-->
+<script>
+    $('#sort-selector').change(function() {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+        var selectedVal = selector.val();
+        if(selectedVal != "reset"){
+            var sort = selectedVal.split("_")[0];
+            var direction = selectedVal.split("_")[1];
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+            window.location.replace(currentUrl);
+        }
+     })
+</script>
 {% endblock %}

@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.db.models.functions import Lower
 from django.contrib import messages
 
-from .models import Product, Category
+from .models import Product
 
 
 class ProductListView(ListView):
@@ -21,7 +21,7 @@ class ProductListView(ListView):
         # Prevent empty search submissions
         if 'q' in request.GET and not request.GET['q'].strip():
             messages.error(request, "Please enter a search term.")
-            return redirect(reverse('products'))
+            return redirect(reverse('products:product_list'))
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -30,20 +30,21 @@ class ProductListView(ListView):
 
         # ——— Sorting ———
         sort_field = params.get('sort')
-        direction = params.get('direction')
+        direction = params.get('direction', 'asc')
         if sort_field:
             # Case‑insensitive sort on name
             if sort_field == 'name':
-                qs = qs.annotate(lower_name=Lower('name'))
-                sort_field = 'lower_name'
-            if direction == 'desc':
-                sort_field = f'-{sort_field}'
-            qs = qs.order_by(sort_field)
+                qs = qs.annotate(sort_name=Lower('name'))
+                real_field = 'sort_name'
+            elif sort_field == 'category':
+                qs = qs.annotate(sort_cat=Lower('category__name'))
+                real_field = 'sort_cat'
+            else:
+                real_field = sort_field
 
-        # ——— Category filter ———
-        if 'category' in params:
-            names = params['category'].split(',')
-            qs = qs.filter(category__name__in=names)
+            if direction == 'desc':
+                real_field = '-' + real_field
+            qs = qs.order_by(real_field)
 
         # ——— Search ———
         if 'q' in params:
@@ -59,20 +60,10 @@ class ProductListView(ListView):
         ctx = super().get_context_data(**kwargs)
         params = self.request.GET
 
-        # echo current search term
+       
         ctx['search_term'] = params.get('q', '')
-
-        # build current category queryset for template badges/links
-        if 'category' in params:
-            names = params['category'].split(',')
-            ctx['current_categories'] = Category.objects.filter(name__in=names)
-        else:
-            ctx['current_categories'] = []
-
-        # let template know current sort & direction
-        sort = params.get('sort', '')
-        direction = params.get('direction', '')
-        ctx['current_sorting'] = f"{sort}.{direction}" if sort else ''
+        ctx['sort_field'] = params.get('sort', '')
+        ctx['direction']  = params.get('direction', '')
 
         return ctx
 
