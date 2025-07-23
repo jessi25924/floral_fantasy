@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from products.models import Product
 
 
@@ -10,19 +11,24 @@ def view_cart(request):
 
 def add_to_cart(request, product_id):
     """
-    Add a product to the user's cart session.
+    Add a quantity of the product to the cart, considering stock.
     """
+    quantity = int(request.POST.get('quantity', 1))
+    redirect_url = request.POST.get('redirect_url', '/')
     product = get_object_or_404(Product, pk=product_id)
 
+    # If the product is marked out of stock, reject the add
     if not product.in_stock:
-        # I could show a message here as well, will come back to this.
-        return redirect('products:product_list')
+        messages.error(request, f'Sorry, "{product.name}" is currently out of stock.')
+        return redirect(redirect_url)
     
-    cart = request.session.get('cart', {})
-    cart[str(product_id)] = cart.get(str(product_id), 0) + 1
+    cart = request.session.get('bag', {})
+    cart[product_id] = cart.get(product_id, 0) + quantity
     request.session['cart'] = cart
 
-    return redirect('product:product_list')
+    messages.success(request, f'Added {quantity} x "{product.name}" to your cart.')
+    print(request.session['cart'])
+    return redirect(redirect_url)
 
 
 def cart_detail(request):

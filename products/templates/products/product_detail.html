@@ -33,32 +33,15 @@
             <h4>Description</h4>
             <p>{{ product.description }}</p>
             <hr>
-            <form class="form" action="{% url 'cart:add_to_cart' product.pk %}" method="POST">
+            <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
             {% csrf_token %}
             <div class="form-row">
                 <div class="col-12">
                     <p class="mt-3"><strong>Quantity:</strong></p>
-                    <div class="form-group w-50">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <button class="decrement-qty btn btn-black rounded-0"
-                                    data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
-                                    <span class="icon">
-                                            <i class="fas fa-minus"></i>
-                                    </span>
-                                </button>
-                            </div>
-                            <input class="form-control qty_input" type="number" name="quantity" value="1"
-                                min="1" max="99" data-item_id="{{ product.id }}" id="id_qty_{{ product.id }}">
-                            <div class="input-group-append">
-                                <button class="increment-qty btn btn-black rounded-0"
-                                    data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
-                                    <span class="icon">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="input-group w-50">
+                        <button type="button" class="btn btn-black qty-btn" data-action="dec"><i class="fas fa-minus"></i></button>
+                        <input type="number" name="quantity" class="form-control text-center" value="1" min="1" max="99">
+                        <button type="button" class="btn btn-black qty-btn" data-action="inc"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="col{% if s %}-12 mt-2{% endif %}">
@@ -73,4 +56,17 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+
+{% block postloadjs %}
+<script>
+    document.addEventListener('click', e => {
+        const btn = e.target.closest('.qty-btn');
+        if (!btn) return;
+        const input = btn.parentNode.querySelector('input[type="number"]');
+        let val = +input.value + (btn.dataset.action === 'inc' ? 1 : -1);
+        input.value = Math.max(+input.min, Math.min(+input.max, val));
+    });
+</script>
 {% endblock %}
