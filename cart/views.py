@@ -62,3 +62,43 @@ def view_cart(request):
         'grand_total': grand_total,
     }
     return render(request, 'cart/cart.html', context)
+
+
+def update_cart(request, product_id):
+    """
+    Update the quantity of a product in the cart.
+    """
+    qty = int(request.POST.get('quantity', 0))
+    redirect_url = request.POST.get('redirect_url', '/')
+    product = get_object_or_404(Product, pk=product_id)
+
+    cart = request.session.get('cart', {})
+    key = str(product_id)
+
+    if qty <= 0:
+        cart.pop(key, None)
+        messages.info(request, f'Removed "{product.name}" from your cart.')
+    else:
+        if not product.in_stock:
+            messages.error(request, f'Sorry, "{product.name}" is out of stock.')
+        else:
+            cart[key] = qty
+            messages.success(request, f'Updated "{product.name}" quantity to {qty}.')
+    
+    request.session['cart'] = cart
+    return redirect(redirect_url)
+
+
+def remove_from_cart(request, product_id):
+    """
+    Remove a product entirely from the cart.
+    """
+    redirect_url = request.POST.get('redirect_url', '/')
+    cart = request.session.get('cart', {})
+    key = str(product_id)
+
+    if key in cart:
+        cart.pop(key)
+        request.session['cart'] = cart
+        messages.info(request, "Item removed from your cart.")
+    return redirect(redirect_url)

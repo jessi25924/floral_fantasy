@@ -44,12 +44,15 @@
                         </td>
                         <td class="text-center">£{{ item.product.price|floatformat:2 }}</td>
                         <td class="text-center">
-                            <form method="post" action="">
+                            <form method="post" action="{% url 'update_cart' item.product.id %}">
                                 {% csrf_token %}
+                                <input type="hidden"
+                                    name="redirect_url"
+                                    value="{% url 'view_cart' %}">
                                 <input type="number"
                                     name="quantity"
                                     value="{{ item.quantity }}"
-                                    min="1"
+                                    min="0"  {# zero means “remove” #}
                                     class="form-control form-control-sm d-inline-block text-center"
                                     style="width: 70px;">
                                 <button type="submit"
@@ -60,8 +63,11 @@
                         </td>
                         <td class="text-center fw-bold">£{{ item.line_total|floatformat:2 }}</td>
                         <td class="text-center">
-                            <form method="post" action="">
+                            <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
                                 {% csrf_token %}
+                                <input type="hidden"
+                                    name="redirect_url"
+                                    value="{% url 'view_cart' %}">
                                 <button type="submit"
                                         class="btn btn-sm btn-danger">
                                 Remove
