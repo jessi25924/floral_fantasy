@@ -84,14 +84,25 @@
                 {% endif %}
 
                 <li class="nav-item mr-3"><a class="nav-link" href="#"><i class="fa-solid fa-heart"></i></a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'view_cart' %}"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                <li class="nav-item position-relative">
+                  <a class="nav-link text-black {% if grand_total %}bag-not-empty{% else %}bag-empty{% endif %}"
+                    href="{% url 'view_cart' %}"
+                    aria-label="View shopping cart">
+                    <i class="fa-solid fa-cart-shopping fa-lg"></i>
+                    {% if grand_total %}
+                      <span
+                        class="badge bg-info text-dark position-absolute top-0 start-100 translate-middle p-1">
+                        £{{ grand_total|floatformat:2 }}
+                      </span>
+                    {% endif %}
+                  </a>
+                </li>
               </ul>
             </div>
             </div>
         </div>
       </nav>
     </header>
-
     {% if messages %}
     <div class="message-container"></div>
     {% endif %}

@@ -44,6 +44,11 @@ h1 {
     color: #D9A796 !important;
 }
 
+.badge {
+    font-size: 0.65rem; 
+    line-height: 1;
+}
+
 footer {
     background-color: #2F4036;
 }
