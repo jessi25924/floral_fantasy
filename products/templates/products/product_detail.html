@@ -60,6 +60,7 @@
 
 
 {% block postloadjs %}
+{{ block.super }}
 <script>
     document.addEventListener('click', e => {
         const btn = e.target.closest('.qty-btn');
@@ -70,3 +71,4 @@
     });
 </script>
 {% endblock %}
+
