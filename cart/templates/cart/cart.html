@@ -10,8 +10,9 @@
 {% endblock %}
 
 {% block content %}
-<div class="container py-5 mt-5">
-    <h1 class="mb-4">Your Shopping Cart</h1>
+<div class="cart-wrapper d-flex flex-column">
+  <div class="flex-grow-1 container py-5 mt-5">
+    <h1 class="mb-4 mt-5">Your Shopping Cart</h1>
 
     {% if cart_items %}
         <div class="table-responsive">
@@ -116,6 +117,6 @@
         Shop Now</a>
     </div>
     {% endif %}
+  </div>
 </div>
-    
 {% endblock %}

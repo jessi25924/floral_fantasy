@@ -50,6 +50,10 @@ h1 {
     line-height: 1;
 }
 
+.cart-wrapper {
+    min-height: calc(100vh - 200px);
+}
+
 /* Toast Message*/
 .message-container {
     position: fixed;

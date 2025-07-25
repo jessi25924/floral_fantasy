@@ -52,7 +52,11 @@ def view_cart(request):
             'line_total': line_total,
         })
 
-    delivery_charge = Decimal('2.99')
+    if subtotal > 0:
+        delivery_charge = Decimal('2.99')
+    else:
+        delivery_charge = Decimal('0.00')
+    
     grand_total = subtotal + delivery_charge
 
     context = {

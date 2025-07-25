@@ -12,13 +12,6 @@
 {% block content %}
     <div class="container py-5 mt-5">
         <h1 class="text-center mb-4 mt-5">Our Bouquets</h1>
-
-        <div id="delivery-banner" class="row text-center py-4">
-            <div class="col bg-black text-white">
-                <h4 class="logo-font my-1">Free delivery on orders over ${{ free_delivery_threshold }}!</h4>
-            </div>
-        </div>
-
         <div class="row mb-4">
             <div class="col-12 col-md-6 my-auto order-md-first d-flex justify-content-center">
                 <div class="sort-select-wrapper w-50">
@@ -100,6 +93,8 @@
 {% endblock %}
 
 {% block postloadjs %}
+<!-- navbar js-->
+<script src="{% static 'js/navbar.js' %}"></script>
 <!--Inspired code by CI walkthrough lesson-->
 <script>
     $('#sort-selector').change(function() {
