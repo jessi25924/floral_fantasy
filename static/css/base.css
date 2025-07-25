@@ -16,7 +16,7 @@ h1 {
     color: white;
 }
 
-/* Navbar and Footer*/
+/* Navbar */
 .navbar-transparent {
     background-color: transparent !important;
     transition: background-color 0.4s ease; 
@@ -44,11 +44,13 @@ h1 {
     color: #D9A796 !important;
 }
 
+/* Cart */
 .badge {
     font-size: 0.65rem; 
     line-height: 1;
 }
 
+/* Toast Message*/
 .message-container {
     position: fixed;
     top: 72px;
@@ -64,6 +66,13 @@ h1 {
     height: 2px;
 }
 
+.cart-notification-wrapper {
+    height: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Footer */
 footer {
     background-color: #2F4036;
 }
