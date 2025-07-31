@@ -41,11 +41,21 @@
                     </li>
                     {% endfor %}
                 </ul>
+
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Order Total:</span>
                         <strong>£{{ subtotal|floatformat:2 }}</strong>
                     </li>
+
+                    <!-- discount line, show only if a code was applied -->
+                     {% if discount_amount %}
+                    <li class="list-group-item d-flex justify-content-between text-danger">
+                        <span>Discount ({{ discount_code }}):</span>
+                        <strong>−£{{ discount_amount|floatformat:2 }}</strong>
+                    </li>
+                     {% endif %}
+
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Delivery:</span>
                         <strong>£{{ delivery|floatformat:2 }}</strong>
@@ -87,6 +97,29 @@
                         {% else %}
                         <p class="small text-muted">Create an <a href="{% url 'account_signup' %}">account</a> or <a
                                 href="{% url 'account_login' %}">login</a> to save details.</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Discount Code Section -->
+                     <div class="form-group mt-4 mb-4">
+                        <label for="discount_code"><strong>Have a discount code?</strong></label>
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                name="discount_code"
+                                id="discount_code"
+                                class="form-control"
+                                placeholder="Enter code"
+                                value="{{ discount_code }}"
+                            >
+                            <button type="submit" class="btn btn-outline-secondary">
+                                Apply
+                            </button>
+                        </div>
+                        {% if discount_amount %}
+                        <small class="text-success">
+                            You saved £{{ discount_amount|floatformat:2 }}!
+                        </small>
                         {% endif %}
                     </div>
 

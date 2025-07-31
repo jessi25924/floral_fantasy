@@ -5,16 +5,30 @@ from decimal import Decimal
 from products.models import Product
 
 
+DISCOUNT_CODE = {
+    'SUMMER10': Decimal('0.10'),
+}
+
+
 def checkout(request):
+    """
+    Display the checkout page, calculate subtotal, delivery, 
+    optional discount, and grand total. 
+    """
     cart = request.session.get('cart', {})
     if not cart:
         messages.error(request, "Your cart is empty at the moment")
         return redirect(reverse('products'))
     
-    order_form = OrderForm()
+    # bind the form to POST data so it retains input after refresh
+    if request.method == 'POST':
+        order_form = OrderForm(request.POST)
+    else:
+        order_form = OrderForm()
     
+    # build cart items & subtotal
     cart_items = []
-    subtotal = Decimal ('0.00')
+    subtotal = Decimal('0.00')
 
     for pid_str, qty in cart.items():
         product = get_object_or_404(Product, pk=int(pid_str))
@@ -26,16 +40,31 @@ def checkout(request):
             'line_total': line_total,
         })
 
+    # compute delivery
     delivery = Decimal('2.99') if subtotal > 0 else Decimal('0.00')
-    grand_total = subtotal + delivery
 
-    template = 'checkout/checkout.html'
-    context = {
-        'order_form': order_form,
-        'cart_items': cart_items,
-        'subtotal': subtotal,
-        'delivery': delivery,
-        'grand_total': grand_total,
-    }
+    # handle discount code (if posted)
+    discount_code = ''
+    discount_amount = Decimal('0.00')
+    if request.method == 'POST':
+        code_input = request.POST.get('discount_code', '').strip().upper()
+        discount_rate = DISCOUNT_CODE.get(code_input)
+        if discount_rate:
+            discount_code = code_input
+            discount_amount = (subtotal * discount_rate).quantize(Decimal('0.01'))
+            messages.success(request, f"Discount code '{code_input}' applied!")
+        elif code_input:
+            messages.error(request, f"Discount code '{code_input}' is invalid.")
 
-    return render(request, template, context)
+    # final grand total = subtotal - discount + delivery 
+    grand_total = subtotal - discount_amount + delivery
+
+    return render(request, 'checkout/checkout.html', {
+        'order_form':     order_form,
+        'cart_items':     cart_items,
+        'subtotal':       subtotal,
+        'delivery':       delivery,
+        'discount_code':  discount_code,
+        'discount_amount': discount_amount,
+        'grand_total':    grand_total,
+    })

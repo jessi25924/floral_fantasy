@@ -65,6 +65,8 @@ class ProductListView(ListView):
         ctx['sort_field'] = params.get('sort', '')
         ctx['direction']  = params.get('direction', '')
 
+        ctx['discount_code']= 'SUMMER10'
+
         return ctx
 
 
