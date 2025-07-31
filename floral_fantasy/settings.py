@@ -32,7 +32,7 @@ DEBUG = False
 ALLOWED_HOSTS = [ 
     '127.0.0.1',
     'localhost',
-    'https://floral-fantasy-bcd2bd74ac5e.herokuapp.com/',
+    'floral-fantasy-bcd2bd74ac5e.herokuapp.com/',
     ]
 
 
