@@ -15,7 +15,8 @@
 
 {% block content %}
 <div class="container mt-5 py-5">
-    <div class="row justify-content-center">
+    <div class="pt-5">
+        <div class="row justify-content-center">
         <!-- Order Summary -->
         <div class="col-lg-5 mb-4">
             <div class="card shadow-sm p-4">
@@ -126,7 +127,9 @@
                     <!-- Payment Section -->
                     <h5 class="mt-4 mb-3">Payment Details</h5>
                     <label for="card-element">Credit or Debit Card Details</label>
-                    <div class="mb-3" id="card-element"></div>
+                    <div class="mb-3 border rounded p-3" id="card-element-wrapper">
+                        <div id="card-element"></div>
+                    </div>
                     <div class="text-danger mb-3" id="card-errors" role="alert"></div>
                     <input type="hidden" value="{{ client_secret }}" name="client_secret">
 
@@ -140,6 +143,7 @@
                 </form>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <!-- <div id="loading-overlay" aria-live="polite">

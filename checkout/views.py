@@ -4,6 +4,9 @@ from .forms import OrderForm
 from decimal import Decimal
 from products.models import Product
 
+from django.conf import settings
+import stripe
+
 
 DISCOUNT_CODE = {
     'SUMMER10': Decimal('0.10'),
@@ -59,6 +62,16 @@ def checkout(request):
     # final grand total = subtotal - discount + delivery 
     grand_total = subtotal - discount_amount + delivery
 
+
+    # Stripe setup
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    intent = stripe.PaymentIntent.create(
+        amount=int(grand_total * 100),  
+        currency='usd',
+    )
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    client_secret = intent.client_secret
+
     return render(request, 'checkout/checkout.html', {
         'order_form':     order_form,
         'cart_items':     cart_items,
@@ -67,4 +80,6 @@ def checkout(request):
         'discount_code':  discount_code,
         'discount_amount': discount_amount,
         'grand_total':    grand_total,
+        'stripe_public_key': stripe_public_key,
+        'client_secret':      client_secret,
     })
