@@ -1,0 +1,1 @@
+web: gunicorn floral_fantasy.wsgi:application
