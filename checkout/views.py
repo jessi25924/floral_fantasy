@@ -72,14 +72,34 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     client_secret = intent.client_secret
 
+    # payment completion handling
+    if request.method == 'POST' and 'payment_intent_id' in request.POST:
+        pi = stripe.PaymentIntent.retrieve(request.POST['payment_intent_id'])
+        if pi.status == 'succeeded':
+            messages.success(request, "Payment successful! Your order is confirmed.")
+
+            return render(request, 'checkout/checkout.html', {
+                'order_form':        order_form,
+                'cart_items':        cart_items,
+                'subtotal':          subtotal,
+                'delivery':          delivery,
+                'discount_code':     discount_code,
+                'discount_amount':   discount_amount,
+                'grand_total':       grand_total,
+                'stripe_public_key': stripe_public_key,
+                'client_secret':     client_secret,
+                'payment_success':   True,  
+            })
+        
     return render(request, 'checkout/checkout.html', {
-        'order_form':     order_form,
-        'cart_items':     cart_items,
-        'subtotal':       subtotal,
-        'delivery':       delivery,
-        'discount_code':  discount_code,
-        'discount_amount': discount_amount,
-        'grand_total':    grand_total,
+        'order_form':        order_form,
+        'cart_items':        cart_items,
+        'subtotal':          subtotal,
+        'delivery':          delivery,
+        'discount_code':     discount_code,
+        'discount_amount':   discount_amount,
+        'grand_total':       grand_total,
         'stripe_public_key': stripe_public_key,
-        'client_secret':      client_secret,
+        'client_secret':     client_secret,
     })
+    

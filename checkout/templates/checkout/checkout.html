@@ -15,139 +15,150 @@
 
 {% block content %}
 <div class="container mt-5 py-5">
-    <div class="pt-5">
-        <div class="row justify-content-center">
-        <!-- Order Summary -->
-        <div class="col-lg-5 mb-4">
-            <div class="card shadow-sm p-4">
-                <h3 class="text-center mb-3">Order Summary</h3>
-                <ul class="list-group mb-3">
-                    {% for item in cart_items %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="col-2 mb-1 order-summary-image">
-                                <a href="{% url 'products:product_list' %}">
-                                    {% if item.product.image %}
-                                    <img class="w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}"">
-                                    {% else %}
-                                    <img class=" w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
-                                    {% endif %}
-                                </a>
-                            </div>
-                            <strong>{{ item.product.name }}</strong>
-                            <br>
-                            <small class="text-muted">
-                                £{{ item.product.price|floatformat:2 }} × {{ item.quantity }}
-                            </small>
-                        </div>
-                        <span>£{{ item.line_total|floatformat:2 }}</span>
-                    </li>
-                    {% endfor %}
-                </ul>
+    <div class="row justify-content-center">
 
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Order Total:</span>
-                        <strong>£{{ subtotal|floatformat:2 }}</strong>
-                    </li>
+      <!-- Order Summary -->
+      <div class="col-lg-5 mb-4">
+        <div class="card shadow-sm p-4">
+          <h3 class="text-center mb-3">Order Summary</h3>
+          <ul class="list-group mb-3">
+            {% for item in cart_items %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="col-2 mb-1 order-summary-image">
+                    <a href="{% url 'products:product_list' %}">
+                      {% if item.product.image %}
+                        <img class="w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                      {% else %}
+                        <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.product.name }}">
+                      {% endif %}
+                    </a>
+                  </div>
+                  <strong>{{ item.product.name }}</strong><br>
+                  <small class="text-muted">
+                    £{{ item.product.price|floatformat:2 }} × {{ item.quantity }}
+                  </small>
+                </div>
+                <span>£{{ item.line_total|floatformat:2 }}</span>
+              </li>
+            {% endfor %}
+          </ul>
 
-                    <!-- discount line, show only if a code was applied -->
-                     {% if discount_amount %}
-                    <li class="list-group-item d-flex justify-content-between text-danger">
-                        <span>Discount ({{ discount_code }}):</span>
-                        <strong>−£{{ discount_amount|floatformat:2 }}</strong>
-                    </li>
-                     {% endif %}
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Order Total:</span>
+              <strong>£{{ subtotal|floatformat:2 }}</strong>
+            </li>
 
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Delivery:</span>
-                        <strong>£{{ delivery|floatformat:2 }}</strong>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between bg-light">
-                        <span class="font-weight-bold">Grand Total:</span>
-                        <strong class="text-success">£{{ grand_total|floatformat:2 }}</strong>
-                    </li>
-                </ul>
-            </div>
+            {% if discount_amount %}
+              <li class="list-group-item d-flex justify-content-between text-danger">
+                <span>Discount ({{ discount_code }}):</span>
+                <strong>−£{{ discount_amount|floatformat:2 }}</strong>
+              </li>
+            {% endif %}
+
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Delivery:</span>
+              <strong>£{{ delivery|floatformat:2 }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <span class="font-weight-bold">Grand Total:</span>
+              <strong class="text-success">£{{ grand_total|floatformat:2 }}</strong>
+            </li>
+          </ul>
         </div>
-        <!-- Checkout Form -->
-        <div class="col-lg-7">
-            <div class="card shadow-sm p-4">
-                <h3 class="text-center mb-4">Checkout</h3>
-                <p class="text-muted">Complete your order by filling out the form below.</p>
-                <form action="{% url 'checkout' %}" method="POST" id="payment-form">
-                    {% csrf_token %}
-                    <!-- Customer Details -->
-                    <h5 class="mb-3">Personal Details</h5>
-                    {{ order_form.full_name | as_crispy_field }}
-                    {{ order_form.email | as_crispy_field }}
-                    {{ order_form.phone_number | as_crispy_field }}
+      </div>
 
-                    <!-- Delivery Details -->
-                    <h5 class="mt-4 mb-3">Delivery Address</h5>
-                    {{ order_form.street_address1 | as_crispy_field }}
-                    {{ order_form.street_address2 | as_crispy_field }}
-                    {{ order_form.town_or_city | as_crispy_field }}
-                    {{ order_form.postcode | as_crispy_field }}
-                    {{ order_form.county | as_crispy_field }}
-                    {{ order_form.country | as_crispy_field }}
+      <!-- Checkout Form -->
+      <div class="col-lg-7">
+        <div class="card shadow-sm p-4">
+          <h3 class="text-center mb-4">Checkout</h3>
+          <p class="text-muted">Complete your order by filling out the form below.</p>
 
-                    <!-- Save Info -->
-                    <div class="form-check mt-3">
-                        {% if user.is_authenticated %}
-                        <input class="form-check-input" type="checkbox" id="id-save-info" name="save-info" checked>
-                        <label class="form-check-label" for="id-save-info">Save delivery details to My Account</label>
-                        {% else %}
-                        <p class="small text-muted">Create an <a href="{% url 'account_signup' %}">account</a> or <a
-                                href="{% url 'account_login' %}">login</a> to save details.</p>
-                        {% endif %}
-                    </div>
-
-                    <!-- Discount Code Section -->
-                     <div class="form-group mt-4 mb-4">
-                        <label for="discount_code"><strong>Have a discount code?</strong></label>
-                        <div class="input-group">
-                            <input
-                                type="text"
-                                name="discount_code"
-                                id="discount_code"
-                                class="form-control"
-                                placeholder="Enter code"
-                                value="{{ discount_code }}"
-                            >
-                            <button type="submit" class="btn btn-outline-secondary">
-                                Apply
-                            </button>
-                        </div>
-                        {% if discount_amount %}
-                        <small class="text-success">
-                            You saved £{{ discount_amount|floatformat:2 }}!
-                        </small>
-                        {% endif %}
-                    </div>
-
-                    <!-- Payment Section -->
-                    <h5 class="mt-4 mb-3">Payment Details</h5>
-                    <label for="card-element">Credit or Debit Card Details</label>
-                    <div class="mb-3 border rounded p-3" id="card-element-wrapper">
-                        <div id="card-element"></div>
-                    </div>
-                    <div class="text-danger mb-3" id="card-errors" role="alert"></div>
-                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
-
-                    <!-- Buttons -->
-                    <div class="text-center mt-4">
-                        <a href="{% url 'view_cart' %}" class="adjust-bag-btn">Edit Cart</a>
-                        <button id="submit-button" class="btn btn-success">Complete Order</button>
-                        <p class="small text-muted mt-2">Your card will be charged
-                            <strong>£{{ grand_total|floatformat:2 }}</strong></p>
-                    </div>
-                </form>
+          <!-- Discount form -->
+          <form id="discount-form" method="POST" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <div class="form-group mt-4 mb-4">
+              <label for="discount_code"><strong>Have a discount code?</strong></label>
+              <div class="input-group">
+                <input
+                  type="text"
+                  name="discount_code"
+                  id="discount_code"
+                  class="form-control"
+                  placeholder="Enter code"
+                  value="{{ discount_code }}"
+                >
+                <button type="submit" class="btn btn-outline-secondary">Apply</button>
+              </div>
+              {% if discount_amount %}
+                <small class="text-success">
+                  You saved £{{ discount_amount|floatformat:2 }}!
+                </small>
+              {% endif %}
             </div>
+          </form>
+
+          <!-- Payment form -->
+          <form id="payment-form" method="POST" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <input type="hidden" name="payment_intent_id" id="payment_intent_id">
+
+            <!-- Customer Details -->
+            <h5 class="mb-3">Personal Details</h5>
+            {{ order_form.full_name|as_crispy_field }}
+            {{ order_form.email|as_crispy_field }}
+            {{ order_form.phone_number|as_crispy_field }}
+
+            <!-- Delivery Details -->
+            <h5 class="mt-4 mb-3">Delivery Address</h5>
+            {{ order_form.street_address1|as_crispy_field }}
+            {{ order_form.street_address2|as_crispy_field }}
+            {{ order_form.town_or_city|as_crispy_field }}
+            {{ order_form.postcode|as_crispy_field }}
+            {{ order_form.county|as_crispy_field }}
+            {{ order_form.country|as_crispy_field }}
+
+            <!-- Save Info -->
+            <div class="form-check mt-3">
+              {% if user.is_authenticated %}
+                <input class="form-check-input" type="checkbox" id="id-save-info" name="save-info" checked>
+                <label class="form-check-label" for="id-save-info">
+                  Save delivery details to My Account
+                </label>
+              {% else %}
+                <p class="small text-muted">
+                  Create an <a href="{% url 'account_signup' %}">account</a> or
+                  <a href="{% url 'account_login' %}">login</a> to save details.
+                </p>
+              {% endif %}
+            </div>
+
+            <!-- Payment Section -->
+            <h5 class="mt-4 mb-3">Payment Details</h5>
+            <label for="card-element">Credit or Debit Card Details</label>
+            <div class="mb-3 border rounded p-3" id="card-element-wrapper">
+              <div id="card-element"></div>
+            </div>
+            <div class="text-danger mb-3" id="card-errors" role="alert"></div>
+
+            <!-- Buttons -->
+            <div class="text-center mt-4">
+              <a href="{% url 'view_cart' %}" class="adjust-bag-btn">Edit Cart</a>
+              <button id="submit-button" name="submit-payment" class="btn btn-success">
+                Complete Order
+              </button>
+              <p class="small text-muted mt-2">
+                Your card will be charged
+                <strong>£{{ grand_total|floatformat:2 }}</strong>
+              </p>
+            </div>
+          </form>
         </div>
+      </div>
+
     </div>
-    </div>
-</div>
+  </div>
 <!-- <div id="loading-overlay" aria-live="polite">
     <h1 class="text-light logo-font loading-spinner">
         <span class="icon">
