@@ -36,9 +36,11 @@
                             </div>
                             <strong>{{ item.product.name }}</strong>
                             <br>
-                            <small class="text-muted">Qty: {{ item.quantity }}</small>
+                            <small class="text-muted">
+                                £{{ item.product.price|floatformat:2 }} × {{ item.quantity }}
+                            </small>
                         </div>
-                        <span>£{{ item.subtotal|floatformat:2 }}</span>
+                        <span>£{{ item.line_total|floatformat:2 }}</span>
                     </li>
                     {% endfor %}
                 </ul>
