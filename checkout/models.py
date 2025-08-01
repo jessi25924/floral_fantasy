@@ -23,6 +23,10 @@ class Order(models.Model):
     delivery_cost = models.DecimalField(max_digits=6, decimal_places=2, null=False, default=0)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
     grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    discount_code = models.CharField(max_length=32, blank=True, default='')
+    discount_amount = models.DecimalField(
+        max_digits=6, decimal_places=2, default=Decimal('0.00')
+    )
 
     def _generate_order_number(self):
         """
@@ -35,13 +39,21 @@ class Order(models.Model):
         Update grand total each time a line item is added,
         including a fixed delivery cost.
         """
-        self.order_total = self.lineitems.aggregate(
-            Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        # Sum all line-item totals
+        self.order_total = (
+            self.lineitems.aggregate(Sum('lineitem_total'))
+            ['lineitem_total__sum'] or Decimal('0.00')
+        )
 
+        # Fixed delivery cost
         self.delivery_cost = Decimal('2.99')
 
-        # grand total
-        self.grand_total = self.order_total + self.delivery_cost
+        # Grand total: items − discount + delivery
+        self.grand_total = (
+            self.order_total
+            - self.discount_amount
+            + self.delivery_cost
+        )
         self.save()
 
     def save(self, *args, **kwargs):

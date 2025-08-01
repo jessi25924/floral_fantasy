@@ -5,6 +5,7 @@ from decimal import Decimal
 from products.models import Product
 
 from django.conf import settings
+from .models import Order, OrderLineItem
 import stripe
 
 
@@ -69,12 +70,24 @@ def checkout(request):
         if order_form.is_valid():
             pi = stripe.PaymentIntent.retrieve(request.POST['payment_intent_id'])
             if pi.status == 'succeeded':
-                messages.success(request, "Payment successful! Your order is confirmed.")
-                # TODO: Save order, clear cart, etc.
-                # Clear the cart
-                request.session['cart'] = {}
+                order = order_form.save(commit=False)
+                
+                order.discount_code = discount_code
+                order.discount_amount = discount_amount
 
-                # Redirect to success page
+                order.delivery_cost = delivery
+                order.save()
+
+                for item in cart_items:
+                    OrderLineItem.objects.create(
+                        order=order,
+                        product=item['product'],
+                        quantity=item['quantity'],
+                        lineitem_total=item['line_total'],
+                    )
+                
+                request.session['cart'] = {}
+                messages.success(request, "Payment successful! Your order is confirmed.")
                 return redirect('checkout_success')
 
     # Only create PaymentIntent if it's not the final post-back
