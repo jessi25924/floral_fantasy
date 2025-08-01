@@ -102,6 +102,7 @@
           <!-- Payment form -->
           <form id="payment-form" method="POST" action="{% url 'checkout' %}">
             {% csrf_token %}
+            <input type="hidden" name="discount_code" value="{{ discount_code }}">
             <input type="hidden" name="payment_intent_id" id="payment_intent_id">
 
             <!-- Customer Details -->

@@ -22,17 +22,10 @@ def checkout(request):
     if not cart:
         messages.error(request, "Your cart is empty at the moment")
         return redirect(reverse('products'))
-    
-    # bind the form to POST data so it retains input after refresh
-    if request.method == 'POST':
-        order_form = OrderForm(request.POST)
-    else:
-        order_form = OrderForm()
-    
-    # build cart items & subtotal
+
+    # Build cart items & subtotal
     cart_items = []
     subtotal = Decimal('0.00')
-
     for pid_str, qty in cart.items():
         product = get_object_or_404(Product, pk=int(pid_str))
         line_total = product.price * qty
@@ -43,10 +36,10 @@ def checkout(request):
             'line_total': line_total,
         })
 
-    # compute delivery
+    # Compute delivery
     delivery = Decimal('2.99') if subtotal > 0 else Decimal('0.00')
 
-    # handle discount code (if posted)
+    # Handle discount code
     discount_code = ''
     discount_amount = Decimal('0.00')
     if request.method == 'POST':
@@ -59,38 +52,42 @@ def checkout(request):
         elif code_input:
             messages.error(request, f"Discount code '{code_input}' is invalid.")
 
-    # final grand total = subtotal - discount + delivery 
+    # Grand total after discount
     grand_total = subtotal - discount_amount + delivery
-
 
     # Stripe setup
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    intent = stripe.PaymentIntent.create(
-        amount=int(grand_total * 100),  
-        currency='usd',
-    )
+    client_secret = None
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
-    client_secret = intent.client_secret
 
-    # payment completion handling
+    # Always have an unbound form ready for rendering
+    order_form = OrderForm()
+
+    # Final step: payment confirmation
     if request.method == 'POST' and 'payment_intent_id' in request.POST:
-        pi = stripe.PaymentIntent.retrieve(request.POST['payment_intent_id'])
-        if pi.status == 'succeeded':
-            messages.success(request, "Payment successful! Your order is confirmed.")
+        order_form = OrderForm(request.POST)
+        if order_form.is_valid():
+            pi = stripe.PaymentIntent.retrieve(request.POST['payment_intent_id'])
+            if pi.status == 'succeeded':
+                messages.success(request, "Payment successful! Your order is confirmed.")
+                # TODO: Save order, clear cart, etc.
+                return render(request, 'checkout/checkout.html', {
+                    'payment_success': True,
+                    'stripe_public_key': stripe_public_key,
+                    'order_form': order_form,  # Still needed in template
+                })
 
-            return render(request, 'checkout/checkout.html', {
-                'order_form':        order_form,
-                'cart_items':        cart_items,
-                'subtotal':          subtotal,
-                'delivery':          delivery,
-                'discount_code':     discount_code,
-                'discount_amount':   discount_amount,
-                'grand_total':       grand_total,
-                'stripe_public_key': stripe_public_key,
-                'client_secret':     client_secret,
-                'payment_success':   True,  
-            })
-        
+    # Only create PaymentIntent if it's not the final post-back
+    if not (request.method == 'POST' and 'payment_intent_id' in request.POST):
+        intent = stripe.PaymentIntent.create(
+            amount=int(grand_total * 100),
+            currency='usd',
+            metadata={
+                'discount_code': discount_code or '',
+            }
+        )
+        client_secret = intent.client_secret
+
     return render(request, 'checkout/checkout.html', {
         'order_form':        order_form,
         'cart_items':        cart_items,
