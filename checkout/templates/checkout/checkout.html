@@ -113,12 +113,13 @@
 
             <!-- Delivery Details -->
             <h5 class="mt-4 mb-3">Delivery Address</h5>
-            {{ order_form.street_address1|as_crispy_field }}
-            {{ order_form.street_address2|as_crispy_field }}
-            {{ order_form.town_or_city|as_crispy_field }}
-            {{ order_form.postcode|as_crispy_field }}
-            {{ order_form.county|as_crispy_field }}
-            {{ order_form.country|as_crispy_field }}
+            {{ order_form.phone_number | as_crispy_field }}
+            {{ order_form.street_address1 | as_crispy_field }}
+            {{ order_form.street_address2 | as_crispy_field }}
+            {{ order_form.town_or_city | as_crispy_field }}
+            {{ order_form.postcode | as_crispy_field }}
+            {{ order_form.county | as_crispy_field }}
+            {{ order_form.country | as_crispy_field }}
 
             <!-- Save Info -->
             <div class="form-check mt-3">
@@ -160,13 +161,7 @@
 
     </div>
   </div>
-<!-- <div id="loading-overlay" aria-live="polite">
-    <h1 class="text-light logo-font loading-spinner">
-        <span class="icon">
-            <i class="fas fa-3x fa-sync-alt fa-spin"></i>
-        </span>
-    </h1>
-</div> -->
+
 {% endblock %}
 
 {% block postloadjs %}
