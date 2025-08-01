@@ -31,7 +31,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [ 
     '127.0.0.1',
-    'localhost',
+    'localhost', # listen for stripe webhooks
     'floral-fantasy-bcd2bd74ac5e.herokuapp.com/',
     ]
 
