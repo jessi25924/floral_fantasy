@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5 py-5">
+    <h2 class="text-white mb-4">Thank you for your order!</h2>
+    <p class="lead">Your order has been successfully processed.</p>
+    <a href="{% url 'products:product_list' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+</div>
+{% endblock %}

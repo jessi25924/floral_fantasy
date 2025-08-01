@@ -71,11 +71,11 @@ def checkout(request):
             if pi.status == 'succeeded':
                 messages.success(request, "Payment successful! Your order is confirmed.")
                 # TODO: Save order, clear cart, etc.
-                return render(request, 'checkout/checkout.html', {
-                    'payment_success': True,
-                    'stripe_public_key': stripe_public_key,
-                    'order_form': order_form,  # Still needed in template
-                })
+                # Clear the cart
+                request.session['cart'] = {}
+
+                # Redirect to success page
+                return redirect('checkout_success')
 
     # Only create PaymentIntent if it's not the final post-back
     if not (request.method == 'POST' and 'payment_intent_id' in request.POST):
@@ -99,4 +99,10 @@ def checkout(request):
         'stripe_public_key': stripe_public_key,
         'client_secret':     client_secret,
     })
-    
+
+
+def checkout_success(request):
+    """
+    Show a confirmation page after successful checkout.
+    """
+    return render(request, 'checkout/checkout_success.html')
