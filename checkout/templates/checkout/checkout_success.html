@@ -12,6 +12,8 @@
 <div class="container text-center mt-5 py-5">
     <h2 class="text-white mb-4">Thank you for your order!</h2>
     <p class="lead">Your order has been successfully processed.</p>
-    <a href="{% url 'products:product_list' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+    <p class="text-black">A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+    <a href="{% url 'products:product_list' %}" class="btn btn-black rounded-0 my-2">Continue Shopping</a>
+    <a href="{% url 'profile' %}" class="btn btn-black rounded-0 my-2">Back to Profile</a>
 </div>
 {% endblock %}

@@ -33,6 +33,20 @@ class Order(models.Model):
         max_digits=6, decimal_places=2, default=Decimal('0.00')
     )
 
+    # Order status field
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('processing', 'Processing'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered'),
+        ('cancelled', 'Cancelled'),
+    ]
+    order_status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'  # default status
+    )
+
     def _generate_order_number(self):
         """
         Generate a random, unique order number using UUID
