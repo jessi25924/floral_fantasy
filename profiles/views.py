@@ -24,7 +24,9 @@ def profile(request):
     context = {
         'form': form,
         'orders': orders,
-        'on_profile_page': True
+        'on_profile_page': True,
+        'full_name': request.user,
+        'email': request.user.email,
     }
     
     return render(request, template, context)
