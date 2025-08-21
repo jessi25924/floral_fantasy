@@ -7,7 +7,7 @@
 
 {% block inner_content %}
 
-<div class="container mt-5">
+<div class="container">
   <hr>
   <h2 class="logo-font mb-4">{% trans "Sign In" %}</h2>
   <hr>
@@ -33,7 +33,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 {% include "socialaccount/snippets/login_extra.html" %}
 
 {% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
+<p class="text-dark">{% blocktrans %}If you have not created an account yet, then please
 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 {% endif %}
 
@@ -45,7 +45,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
   {% endif %}
   <a class="btn btn-outline-black rounded-0" href="{% url 'landing' %}">Home</a>
   <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-  <p class="mt-2">
+  <p class="mt-4">
     <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
   </p>
 </form>
