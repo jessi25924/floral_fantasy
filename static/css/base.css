@@ -141,7 +141,24 @@ footer {
 	color: #17a2b8; /* text-info */
 }
 
-
+/* discount */
 .discount-section {
             background-color: #BF8E7F;
         }
+
+/* landing image */
+.fixed-height-img {
+        height: 500px;       /* adjust as needed */
+        width: 100%;         /* maintain responsiveness */
+        object-fit: cover;   /* ensures aspect ratio without stretching */
+    }
+
+/* product detail image */
+.product-image {
+    max-width: 400px;   /* limit width */
+    max-height: 400px;  /* limit height */
+    width: 100%;        /* responsive within column */
+    height: auto;       /* keeps aspect ratio */
+    border-radius: 0px; 
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
