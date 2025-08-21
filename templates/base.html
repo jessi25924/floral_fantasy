@@ -65,14 +65,11 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     {% if request.user.is_authenticated %}
-                    {% if request.user.is_superuser %}
-                    <a href="{% url 'products:add_product' %}" class="dropdown-item">Product Management</a>
-                    {% endif %}
-                    <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-                    <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+                        <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                        <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                     {% else %}
-                    <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                    <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                        <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                        <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                     {% endif %}
                   </div>
                 </li>
@@ -83,7 +80,7 @@
                     <i class="fa-solid fa-gear"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#">Products</a>
+                    <a class="dropdown-item" href="{% url 'products:add_product' %}">Product Control</a>
                     <a class="dropdown-item" href="#">Inquiries</a>
                   </div>
                 </li>
