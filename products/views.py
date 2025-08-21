@@ -1,10 +1,11 @@
-from django.shortcuts import redirect, reverse
+from django.shortcuts import redirect, reverse, render
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 from django.db.models.functions import Lower
 from django.contrib import messages
 
 from .models import Product
+from .forms import ProductForm
 
 
 class ProductListView(ListView):
@@ -15,7 +16,6 @@ class ProductListView(ListView):
     template_name = 'products/product_list.html'
     context_object_name = 'products'
     paginate_by = 8
-
 
     def get(self, request, *args, **kwargs):
         # Prevent empty search submissions
@@ -59,7 +59,6 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         params = self.request.GET
-
        
         ctx['search_term'] = params.get('q', '')
         ctx['sort_field'] = params.get('sort', '')
@@ -77,3 +76,14 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'products/product_detail.html'
     context_object_name = 'product'
+
+
+def add_product(request):
+    """ Add a product to the store """
+    form = ProductForm()
+    template = 'products/add_product.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)
