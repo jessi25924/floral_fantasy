@@ -30,14 +30,27 @@
                 <!-- Text Column-->
                  <div class="col-12 col-md-6 mb-4 mb-md-0 text-center text-md-start">
                     <h2 class="fw-bold">About Floral Fantasy</h2>
-                    <p class="lead">Floral fantasy goals, and brief history</p>
-                    <a href="" class="btn btn-success btn-lg">Shop Now</a>
+                    <p class="lead">
+                    Founded in 2025, Floral Fantasy started as a small neighborhood flower stand. 
+                    With a passion for creating beautiful arrangements and spreading joy, we’ve grown into a beloved local brand, 
+                    crafting unique floral experiences for every occasion.
+                    </p>
+                    <a href="{% url 'products:product_list' %}" class="btn btn-success btn-lg">Shop Now</a>
                  </div>
                  <!-- Image Column -->
                   <div class="col-12 col-md-6 text-center">
                     <img src="{% static 'images/image1.jpg' %}" alt="floral arrangement" class="img-fluid">
                   </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Discount Notice -->
+    <section class="discount-section py-4 mb-4 text-center">
+        <div class="container">
+            <p class="mb-2"><strong>Don't miss out!</strong> Use code <strong>SUMMER10</strong> to get 10% off your order.</p>
+            <p>Limited time only!</p>
+            <a href="{% url 'products:product_list' %}" class="btn btn-success">Shop Now</a>
         </div>
     </section>
 {% endblock %}
