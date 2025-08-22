@@ -55,31 +55,31 @@
     </section>
 
     <!-- Contact Form -->
-     <section id="contact" class="py-5 bg-light">
+     <section id="contact" class="py-5">
         <div class="container">
-            <h2 class="mb-4">Got a question?</h2>
-            <p>Our team are happy to answer your question.</p>
+            <h2 class="mb-4">Got a question about our arrangements?</h2>
+            <p>Don't hesitate to contact us with your inquiries! We're here to guide you.</p>
 
             <form method="post" action="{% url 'contact_submit' %}" class="row g-3">
             {% csrf_token %}
 
             <div class="col-md-6">
-                <label for="id_name" class="form-label">Name</label>
+                <label for="id_name" class="form-label">Name:</label>
                 <input type="text" name="name" id="id_name" class="form-control" required maxlength="100">
             </div>
 
             <div class="col-md-6">
-                <label for="id_email" class="form-label">Email</label>
+                <label for="id_email" class="form-label">Email:</label>
                 <input type="email" name="email" id="id_email" class="form-control" required>
             </div>
 
             <div class="col-12">
-                <label for="id_message" class="form-label">Question/Message</label>
+                <label for="id_message" class="form-label mt-4">Question/Message:</label>
                 <textarea name="message" id="id_message" class="form-control" rows="4" required></textarea>
             </div>
 
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-success mt-4">
                 Submit
                 </button>
             </div>
