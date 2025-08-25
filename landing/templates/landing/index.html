@@ -1,21 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+
 {% block page_header %}
-    <!--Add a small CSS block to apply the hero background using Django static-->
-    <style>
-        .hero {
-            background-image: 
-            linear-gradient(
-                rgba(0, 0, 0, 0.7),  
-                rgba(0, 0, 0, 0.2)   
-            ), 
-            url("{% static 'images/hero.jpg' %}");
-            background-position: center;
-            background-size: cover;
-            min-height: 100vh;
-        }
-    </style>
     <section class="hero hero d-flex align-items-center justify-content-center text-center">
         <div class="container">
             <h1 class="display-2 display-md-1 text-white fw-bold text-shadow">"Elegance in Bloom"</h1>
