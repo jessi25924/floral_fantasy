@@ -160,6 +160,10 @@ footer {
             background-color: #BF8E7F;
         }
 
+.discount-section, .alert {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 /* landing image */
 .fixed-height-img {
         height: 500px;       /* adjust as needed */
@@ -181,4 +185,8 @@ footer {
 .card-img-top {
     object-fit: cover;
     height: 200px;
+}
+
+.card, .alert {
+    border-radius: 0;
 }
