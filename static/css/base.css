@@ -100,6 +100,13 @@ footer {
     margin-bottom: 1rem;
 }
 
+.signup-page .container-fluid.d-flex {
+  align-items: flex-start !important;  /* stop vertical centering */
+  min-height: auto !important;         /* override min-vh-100 */
+  padding-top: 8rem !important;   /* space below navbar */
+  padding-bottom: 2rem; /* space above footer */
+}
+
 
 /* Allauth form formatting */
 
