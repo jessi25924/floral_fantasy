@@ -256,18 +256,138 @@ All core features and user interactions of the application were manually tested 
 | click on Prev or Next                      | should navigate to previous page or next page        | **Pass**- Achieves desired functionality |
 
 ### Products Details Page
+| Comment | Screenshot             |
+| ------- | ---------------------- |
+| **Superuser** | ![](documentation/testing/product-details-superuser.png) |
+| **User** | ![](documentation/testing/product-details-user.png) |
+
+| Action                                     | Expected Result                             | Comment                                  |
+| ------------------------------------------ | ------------------------------------------- | ---------------------------------------- |
+| On Quantity, Use + or - (or arrow keys) | should adjust the quantity, or enter the desired number directly        | **Pass**- Achieves desired functionality |
+| click on Back To All Bouquets      | should navigate to Products List page        | **Pass**- Achieves desired functionality |
+| click on Add to Cart  | should add the item in the cart with a clear message confirmation that it has been added        | **Pass**- Achieves desired functionality |
+| click on Edit (superuser)    | should navigate to Product Management page for editing        | **Pass**- Achieves desired functionality |
+| click on Delete (superuser)  | should delete the item with a clear message confirmation that the item has been deleted    | **Pass**- Achieves desired functionality |
+
 ### Cart Page
+| Comment | Screenshot             |
+| ------- | ---------------------- |
+| **Cart Empty** | ![](documentation/testing/cart-empty.png) |
+| **Cart with Items** | ![](documentation/testing/cart.png) |
+
+| Action                                     | Expected Result                             | Comment                                  |
+| ------------------------------------------ | ------------------------------------------- | ---------------------------------------- |
+| Click on Shop Now (empty cart) | should navigate to Product List        | **Pass**- Achieves desired functionality |
+| On Quantity, Click on Update  | should update the quantity        | **Pass**- Achieves desired functionality |
+| Click on Remove | should remove the item from the cart        | **Pass**- Achieves desired functionality |
+| Click on Continue Shopping | should navigate back to Product List        | **Pass**- Achieves desired functionality |
+| Click on Proceed to Checkout | should navigate to Checkout Page        | **Pass**- Achieves desired functionality |
+
 ### Checkout Page
+| Comment | Screenshot             |
+| ------- | ---------------------- |
+| **Checkout Page** | ![](documentation/testing/checkout-page1.png) |
+|  | ![](documentation/testing/checkout-page2.png) |
+
+| Action                                     | Expected Result                             | Comment                                  |
+| ------------------------------------------ | ------------------------------------------- | ---------------------------------------- |
+| Enter a Discount Code SUMMER10 | should apply a 10% off discount   | **Pass**- Achieves desired functionality |
+| Enter Full Name  | prompt the user to fill the field when Full Name is blank | **Pass**- Achieves desired functionality |
+| Enter Email Address  | prompt the user to fill the field when Email Address is blank | **Pass**- Achieves desired functionality |
+| Enter Phone Number  | prompt the user to fill the field when Phone Number is blank | **Pass**- Achieves desired functionality |
+| Enter Street Address 1  | prompt the user to fill the field when it is blank | **Pass**- Achieves desired functionality |
+| Enter Street Address 2  | nullable / it is not required | **Pass**- Achieves desired functionality |
+| Enter Town or City  | prompt the user to fill the field when Town or City is blank | **Pass**- Achieves desired functionality |
+| Enter Postal Code  | nullable / it is not required | **Pass**- Achieves desired functionality |
+| Enter County, State or Locality  | nullable / it is not required | **Pass**- Achieves desired functionality |
+| Select dropdown Country  | prompt the user to fill the dropdown field when it is blank | **Pass**- Achieves desired functionality |
+| Enter Card Details  | prompt the user to fill the field when Card detaila is blank and if the details are incorrect | **Pass**- Achieves desired functionality |
+| Click on Edit Cart  | should redirect to the Cart | **Pass**- Achieves desired functionality |
+| Click on Complete Order  | should complete the order and message confirmation is shown | **Pass**- Achieves desired functionality |
+
+[Back To Top](#table-of-contents)
+
 ### My Profile Page
+| Comment | Screenshot             |
+| ------- | ---------------------- |
+| **no order** | ![](documentation/testing/profile-empty.png) |
+| **User's dashboard** | ![](documentation/testing/profile.png) |
+
+| Action                                     | Expected Result                             | Comment                                  |
+| ------------------------------------------ | ------------------------------------------- | ---------------------------------------- |
+| No orders | clear message confirmation that no orders yet   | **Pass**- Achieves desired functionality |
+| Clink on Item Name  | should navigate to the Product Details Page to reorder easily | **Pass**- Achieves desired functionality |
+
 ### SignUp Form
+![](documentation/testing/signup-desktop.png)
+| Action | Expected Result| Comment |
+| ----------- | ------- | ---------------------- |
+| Enter valid Email Address (twice) | Prompt the user to fill the field when email address is blank is blank and notified user when emails doesn't match | **Pass**- Achieves desired functionality |
+| Enter Username | Prompt the user to fill the field when username is blank | **Pass**- Achieves desired functionality |
+| Enter valid Password (twice) | field will only accept password format | **Pass**- Achieves desired functionality |
+| Click Back to Login | redirect user to login page | **Pass**- Achieves desired functionality |
+| Click Sign Up | create users account and a verification email will be sent, check email to verify the account | **Pass**- Achieves desired functionality |
+
 ### Contact Form
+![](documentation/testing/contact-form-desktop.png)
+| Action | Expected Result| Comment |
+| ----------- | ------- | ---------------------- |
+| Enter Name | Prompt the user to fill the field when Name is blank | **Pass**- Achieves desired functionality |
+| Enter Email | Prompt the user to fill the field when Email is blank | **Pass**- Achieves desired functionality |
+| Enter Message/Question | Prompt the user to fill the Textarea when Textarea is blank | **Pass**- Achieves desired functionality |
+
 ### LogIn Page
+![](documentation/testing/login-page.png)
+| Action | Expected Result | Comment |
+| ----------- | ------- | ---------------------- |
+| Enter Username | prompt the user to fill the field when username is blank | **Pass**- Achieves desired functionality |
+| Enter Valid Password | only valid password will be accepted, incorrect password will display invalid email or password message | **Pass**- Achieves desired functionality |
+| click on Sign In | show a message that user is signed in, access to My Profile and Logout | **Pass**- Achieves desired functionality |
+| Click on Sign Up | redirect user to sign up page | **Pass**- Achieves desired functionality |
+| Click on Home | redirect user to home/landing page | **Pass**- Achieves desired functionality |
+| Click on Forgot Password | redirect user to reset password page | **Pass**- Achieves desired functionality |
+
 ### LogOut Page
+![](documentation/testing/signout-verification.png)
+| Action | Expected Result | Comment |
+| ----------- | ------- | ---------------------- |
+| Click on Sign Out | should sign out the account with a clear message confirmation that user is signed out | **Pass**- Achieves desired functionality |
+| Click on Cancel | redirect user to home/landing page | **Pass**- Achieves desired functionality |
+
 ### Reset Password Page
+![](documentation/testing/password-reset-page.png)
+| Action | Expected Result | Comment |
+| ----------- | ------- | ---------------------- |
+| Enter Email Address | prompt the user to fill the field when email is blank | **Pass**- Achieves desired functionality |
+| Click Reset My Password | should sent an email with a link to reset password | **Pass**- Achieves desired functionality |
+| Click Back to Login | redirect user to log in page | **Pass**- Achieves desired functionality |
 
 [Back To Top](#table-of-contents)
 
 ## User Stories
+| User Stories | Comment | Screenshots |
+| ---- | ---- | ---- |
+| As a visitor I want to sign up with my email and password so that I can create a personal account  | Achieves desired functionality  | ![](documentation/testing/signup-desktop.png)  |
+| As a registered user I want to log in/out so that my session and data stay secure  | Achieves desired functionality  | ![](documentation/testing/login-page.png)  |
+|   | Achieves desired functionality  | ![](documentation/testing/signout-verification.png)  |
+| As a logged in user I want to view my dashboard with past orders so that I can easily reorder my favourite bouquets  | Achieves desired functionality  | ![](documentation/testing/profile.png)  |
+| As a shopper I want to see all available bouquets with images, descriptions, and prices so that I can decide what to buy.  | Achieves desired functionality  | ![](documentation/testing/products-page.png)  |
+| As a shopper I want to click into a product detail page so that I can read all the information about the product  | Achieves desired functionality  | ![](documentation/testing/product-details1.png)  |
+| As a shopper I want to see all the items I’ve added to my cart on one page, with clear options to update quantities or remove items, so I can easily manage my order before checking out.  | Achieves desired functionality  | ![](documentation/testing/cart.png)  |
+| As a shopper I want to enter my payment details including delivery address so that I can securely pay for my order and deliver it to me.  | Achieves desired functionality  | ![](documentation/testing/checkout-page1.png)  |
+|   | Achieves desired functionality  | ![](documentation/testing/checkout-page2.png)  |
+| As any user I want to see info/toast messages on every action (e.g., “Added to cart", or "Item removed"), so that I know whether my action succeeded.  | Achieves desired functionality  | ![](documentation/testing/global-message.png)  |
+| As a user who forgotten password, I want to request a reset link so that I can regain access to my account.  | Achieves desired functionality  | ![](documentation/testing/password-reset-page.png)  |
+|   | Achieves desired functionality  | ![](documentation/testing/reset-password-email.png)  |
+| As a shop owner I want an admin interface to add/edit/delete bouquets (including images, price, category), so I can keep the inventory up to date.  | Achieves desired functionality  | ![](documentation/testing/admin2.png)  |
+| As the shop owner I want users to submit their questions through a contact form that send inquiries directly to my company email address, so I can easily view and respond to them without missing any messages.  | Partially Achieved: feature does not meet the full acceptance criteria in production.  | ![](documentation/testing/contact-form-desktop.png)  |
+|   | Partially Achieved: feature works in development.  | ![](documentation/testing/contact-form-terminal.png)  |
+| As a shopper I want to search by name and filter by category, and sort by price or name, so that I can narrow down to exactly what I’m looking for.  | Achieves desired functionality  | ![](documentation/testing/sort-search.png)  |
+| As a shopper I want to enter promo codes at checkout, so that I can receive discounts on my order.  | Achieves desired functionality  | ![](documentation/testing/discount-code.png)  |
+| As a shopper I want to receive email confirmations for account creation and password resets, so I can verify my identity and regain access securely when needed.  | Achieves desired functionality  | ![](documentation/testing/reset-password-email.png)  |
+|   | Achieves desired functionality  | ![](documentation/testing/confirm-email.png)  |
 
 ## Bugs
+- Contact form email functionality not fully achieved. In development, emails are sent to the terminal for testing, but in the deployed production environment, emails are not being received by the admin. Fruther configuraiton of the email service is required.
+
 [Back To Top](#table-of-contents)
