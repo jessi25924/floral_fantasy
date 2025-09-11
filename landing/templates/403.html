@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+    <div class="container header-container mt-5">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column min-vh-100 justify-content-center align-items-center text-center">
+    <h1 class="display-1 text-warning fw-bold">403</h1>
+    <p class="fs-4 mb-4">Sorry, you don’t have permission to access this page.</p>
+    <a href="{% url 'landing' %}" class="btn btn-primary">Go Back Home</a>
+</div>
+{% endblock %}

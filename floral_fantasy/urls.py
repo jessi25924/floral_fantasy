@@ -28,3 +28,6 @@ urlpatterns = [
     path('checkout/', include('checkout.urls')),
     path('profile/', include('profiles.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "landing.views.custom_page_not_found"
+handler403 = "landing.views.custom_permission_denied"
