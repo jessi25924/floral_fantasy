@@ -99,18 +99,18 @@ A comprehensive testing strategy was essential for this project. It combines man
 
 | Device      | Page         | Screenshot                                   |
 | ----------- | ------------ | -------------------------------------------- |
-| **Desktop** | Home         | ![](documentation/testing/) |
-| **Mobile**  | Home         | ![](documentation/testing/) |
-| **Desktop** | Products         | ![](documentation/testing/) |
-| **Mobile**  | Products         | ![](documentation/testing/) |
-| **Desktop** | Product Details | ![](documentation/testing/) |
-| **Mobile**  | Product Details | ![](documentation/testing/) |
-| **Desktop** | Cart   | ![](documentation/testing/) |
-| **Mobile**  | Cart   | ![](documentation/testing/) |
-| **Desktop** | Checkout | ![](documentation/testing/) |
-| **Mobile**  | Checkout | ![](documentation/testing/) |
-| **Desktop** | Profile         | ![](documentation/testing/) |
-| **Mobile**  | Profile         | ![](documentation/testing/) |
+| **Desktop** | Home         | ![](documentation/testing/lighthouse-home-desktop.png) |
+| **Mobile**  | Home         | ![](documentation/testing/lighthouse-home-mobile.png) |
+| **Desktop** | Products         | ![](documentation/testing/lighthouse-products-desktop.png) |
+| **Mobile**  | Products         | ![](documentation/testing/lighthouse-products-mobile.png) |
+| **Desktop** | Product Details | ![](documentation/testing/lighthouse-productdetails-desktop.png) |
+| **Mobile**  | Product Details | ![](documentation/testing/lighthouse-productdetails-mobile.png) |
+| **Desktop** | Cart   | ![](documentation/testing/lighthouse-cart-desktop.png) |
+| **Mobile**  | Cart   | ![](documentation/testing/lighthouse-cart-mobile.png) |
+| **Desktop** | Checkout | ![](documentation/testing/lighthouse-checkout-desktop.png) |
+| **Mobile**  | Checkout | ![](documentation/testing/lighthouse-checkout-mobile.png) |
+| **Desktop** | Profile         | ![](documentation/testing/lighthouse-profile-desktop.png) |
+| **Mobile**  | Profile         | ![](documentation/testing/lighthouse-profile-mobile.png) |
 
  </details>
 
